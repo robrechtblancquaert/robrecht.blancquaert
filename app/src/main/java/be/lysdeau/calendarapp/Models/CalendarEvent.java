@@ -20,7 +20,7 @@ public class CalendarEvent {
     private Bitmap bitmap;
     // Start and end times of the event, if endDate is null or on a different day event will be considered full day
     @Embedded(prefix = "start_")
-    private CalendarDate startDate;
+    private CalendarDate startDate = new CalendarDate();
     @Embedded(prefix = "end_")
     private CalendarDate endDate;
 

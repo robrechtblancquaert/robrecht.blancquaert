@@ -4,4 +4,29 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_event_list">EventListActivity</string>
+
+    <string name="save_event">Save</string>
+    <string name="cancel_event_creation">Cancel</string>
+    <string name="enter_event_name_hint">Enter name</string>
+    <string name="enter_event_description_hint">description</string>
+    <string name="event_creation_date">Date:</string>
+    <string name="event_creation_start">Start:</string>
+    <string name="event_creation_end">End:</string>
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>Sol</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string name="event_year_hint">Year</string>
+    <string name="event_day_hint">Day</string>
+    <string name="event_full_day">Full day?</string>
 </resources>
