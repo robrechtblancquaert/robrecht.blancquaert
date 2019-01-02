@@ -1,17 +1,27 @@
 package be.lysdeau.calendarapp.Models;
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
 // Class represents events planned by users to be displayed in the calendar
+@Entity(tableName = "events")
 public class CalendarEvent {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     // Name of the event
     private String name;
     // Description of the event
     private String description;
     // Optional image added to the event
+    @Ignore
     private Bitmap bitmap;
     // Start and end times of the event, if endDate is null or on a different day event will be considered full day
+    @Embedded(prefix = "start_")
     private CalendarDate startDate;
+    @Embedded(prefix = "end_")
     private CalendarDate endDate;
 
     /*
@@ -38,6 +48,14 @@ public class CalendarEvent {
     /*
         GETTERS AND SETTERS
      */
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
