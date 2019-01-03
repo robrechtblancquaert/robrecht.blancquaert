@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.CreateEventActivity" />
+        <activity android:name=".Activities.ui.eventlist.EventListActivity" />
+        <activity android:name=".Activities.ListEventActivity"></activity>
     </application>
 
 </manifest>

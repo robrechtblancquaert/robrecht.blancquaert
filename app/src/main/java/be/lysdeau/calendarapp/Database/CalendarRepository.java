@@ -53,5 +53,6 @@ public class CalendarRepository {
                 callback.dataReceived(dao.getAllCalendarEvent());
             }
         };
+        new Thread(runQuery).start();
     }
 }
