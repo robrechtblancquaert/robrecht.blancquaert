@@ -111,7 +111,7 @@ public class CreateEventActivity extends AppCompatActivity {
         startDate.setDay((selectedDay%4) + 1);
 
         CalendarDate endDate = null;
-        if(fullDay.isChecked()) {
+        if(!fullDay.isChecked()) {
             endDate = new CalendarDate();
             endDate.setYear(Integer.valueOf(this.year.getText().toString()));
             endDate.setMonth(selectedMonth);
