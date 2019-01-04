@@ -1,5 +1,6 @@
 package be.lysdeau.calendarapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,11 +31,13 @@ public class ListEventActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        final Context context = this;
+
         CalendarRepository repository = new CalendarRepository(this.getApplication());
         repository.getAllCalendarEvents(new DataCallback<CalendarEvent>() {
             @Override
             public void dataReceived(List<CalendarEvent> data) {
-                ListEventAdapter adapter = new ListEventAdapter(data);
+                ListEventAdapter adapter = new ListEventAdapter(data, context);
                 recyclerView.setAdapter(adapter);
             }
         });

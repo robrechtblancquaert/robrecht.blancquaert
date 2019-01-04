@@ -27,12 +27,14 @@
             <TextView
                 android:id="@+id/title_text"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
@@ -63,95 +65,99 @@
                 card_view:layout_constraintStart_toEndOf="@+id/imageView"
                 card_view:layout_constraintTop_toBottomOf="@+id/title_text" />
 
-            <TextView
-                android:id="@+id/start_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/startDate_text"
-                card_view:layout_constraintEnd_toStartOf="@+id/end_text"
+                android:orientation="vertical"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                card_view:layout_constraintStart_toEndOf="@+id/imageView"
+                card_view:layout_constraintTop_toBottomOf="@+id/description_text">
+
+                <TextView
+                    android:id="@+id/card_event_date_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/event_creation_date" />
+
+                <TextView
+                    android:id="@+id/card_event_start_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/event_creation_start" />
+
+                <TextView
+                    android:id="@+id/card_event_end_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/event_creation_end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                card_view:layout_constraintTop_toBottomOf="@+id/description_text">
+
+                <TextView
+                    android:id="@+id/card_event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/card_event_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/card_event_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/listDivider"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/imageView"
                 card_view:layout_constraintTop_toBottomOf="@+id/description_text" />
 
-            <TextView
-                android:id="@+id/end_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/endDate_text"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/start_text"
-                card_view:layout_constraintTop_toBottomOf="@+id/description_text" />
-
-            <TextView
-                android:id="@+id/startDate_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/startTime_text"
-                card_view:layout_constraintEnd_toStartOf="@+id/endDate_text"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView"
-                card_view:layout_constraintTop_toBottomOf="@+id/start_text" />
-
-            <TextView
-                android:id="@+id/endDate_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/endTime_text"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/startDate_text"
-                card_view:layout_constraintTop_toBottomOf="@+id/end_text" />
-
-            <TextView
-                android:id="@+id/startTime_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/endTime_text"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView"
-                card_view:layout_constraintTop_toBottomOf="@+id/startDate_text" />
-
-            <TextView
-                android:id="@+id/endTime_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/startTime_text"
-                card_view:layout_constraintTop_toBottomOf="@+id/endDate_text" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

@@ -112,4 +112,12 @@ public class CalendarDate {
             return false;
         }
     }
+
+    public  boolean isLeapDay() {
+        return (month == 6 && week == 4 && day == 8);
+    }
+
+    public boolean isYearDay() {
+        return (month == 13 && week == 4 && day == 8);
+    }
 }

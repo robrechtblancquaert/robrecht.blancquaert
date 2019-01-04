@@ -29,4 +29,8 @@
     <string name="event_year_hint">Year</string>
     <string name="event_day_hint">Day</string>
     <string name="event_full_day">Full day?</string>
+    <string name="year_day">Year Day</string>
+    <string name="leap_day">Leap Day</string>
+    <string name="event_saved">Event saved!</string>
+    <string name="delete">Delete</string>
 </resources>

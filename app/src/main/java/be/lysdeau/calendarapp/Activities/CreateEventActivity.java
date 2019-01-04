@@ -32,6 +32,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private TimePicker startTime;
     private TimePicker endTime;
 
+    // Only need to support after 16, which is correct
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,16 +108,16 @@ public class CreateEventActivity extends AppCompatActivity {
         startDate.setYear(Integer.valueOf(this.year.getText().toString()));
         startDate.setMonth(selectedMonth);
         int selectedDay = Integer.valueOf(this.day.getText().toString());
-        startDate.setWeek((selectedDay/4) + 1);
-        startDate.setDay((selectedDay%4) + 1);
+        startDate.setWeek((selectedDay/7) + 1);
+        startDate.setDay((selectedDay%7) + 1);
 
         CalendarDate endDate = null;
         if(!fullDay.isChecked()) {
             endDate = new CalendarDate();
             endDate.setYear(Integer.valueOf(this.year.getText().toString()));
             endDate.setMonth(selectedMonth);
-            endDate.setWeek((selectedDay/4) + 1);
-            endDate.setDay((selectedDay%4) + 1);
+            endDate.setWeek((selectedDay/7) + 1);
+            endDate.setDay((selectedDay%7) + 1);
 
             startDate.setHour(startTime.getHour());
             startDate.setMinute(startTime.getMinute());
@@ -134,6 +135,10 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     public void onCancel(View v) {
+
+    }
+
+    public void onDelete(View v) {
 
     }
 }
