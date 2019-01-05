@@ -130,8 +130,7 @@
 
             <EditText
                 android:id="@+id/year_number"
-                android:gravity="center"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
@@ -140,6 +139,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginBottom="2dp"
                 android:ems="10"
+                android:gravity="center"
                 android:hint="@string/event_year_hint"
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -281,7 +281,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/delete_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

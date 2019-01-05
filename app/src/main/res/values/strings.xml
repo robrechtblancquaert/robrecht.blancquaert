@@ -33,4 +33,5 @@
     <string name="leap_day">Leap Day</string>
     <string name="event_saved">Event saved!</string>
     <string name="delete">Delete</string>
+    <string name="event_updated">Event updated!</string>
 </resources>

@@ -1,9 +1,11 @@
 package be.lysdeau.calendarapp.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -65,17 +67,7 @@ public class ListEventAdapter extends RecyclerView.Adapter<ListEventAdapter.Even
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
         final View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_event_card, viewGroup, false);
         EventViewHolder holder = new EventViewHolder(itemView);
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //Snackbar snackbar = Snackbar.make(itemView, R.string.event_saved, Snackbar.LENGTH_LONG);
-                //snackbar.show();
-                Intent intent = new Intent(context, CreateEventActivity.class);
-                intent.putExtra("eventId", i);
-                context.startActivity(intent);
-                return true;
-            }
-        });
+
 
         return holder;
     }
@@ -84,6 +76,18 @@ public class ListEventAdapter extends RecyclerView.Adapter<ListEventAdapter.Even
     public void onBindViewHolder(@NonNull EventViewHolder eventViewHolder, int i) {
         eventViewHolder.eventTitle.setText(events.get(i).getName());
         eventViewHolder.description.setText(events.get(i).getDescription());
+
+        final int position = eventViewHolder.getAdapterPosition();
+
+        eventViewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(context, CreateEventActivity.class);
+                intent.putExtra("eventId", events.get(position).getId());
+                ((Activity)context).startActivityForResult(intent, ListEventActivity.EDIT_EVENT_REQUEST);
+                return true;
+            }
+        });
 
         CalendarDate startDate = events.get(i).getStartDate();
         CalendarDate endDate = events.get(i).getEndDate();

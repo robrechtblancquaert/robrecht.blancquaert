@@ -55,4 +55,34 @@ public class CalendarRepository {
         };
         new Thread(runQuery).start();
     }
+
+    public void getLatestCreatedCalendarEvent(@NonNull final DataCallback<CalendarEvent> callback) {
+        Runnable runQuery = new Runnable() {
+            @Override
+            public void run() {
+                callback.dataReceived(dao.getLatestCreatedEvent());
+            }
+        };
+        new Thread(runQuery).start();
+    }
+
+    public void getEventById(final long eventId, @NonNull final DataCallback<CalendarEvent> callback) {
+        Runnable runQuery = new Runnable() {
+            @Override
+            public void run() {
+                callback.dataReceived(dao.getEventById(eventId));
+            }
+        };
+        new Thread(runQuery).start();
+    }
+
+    public void deleteById(final long eventId) {
+        Runnable runDelete = new Runnable() {
+            @Override
+            public void run() {
+                dao.deleteById(eventId);
+            }
+        };
+        new Thread(runDelete).start();
+    }
 }

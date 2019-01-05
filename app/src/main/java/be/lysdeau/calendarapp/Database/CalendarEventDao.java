@@ -24,4 +24,13 @@ public interface CalendarEventDao {
 
     @Query("SELECT * FROM events")
     List<CalendarEvent> getAllCalendarEvent();
+
+    @Query("SELECT * FROM events ORDER BY id DESC LIMIT 1")
+    List<CalendarEvent> getLatestCreatedEvent();
+
+    @Query("SELECT * FROM events WHERE id = :eventId LIMIT 1")
+    List<CalendarEvent> getEventById(long eventId);
+
+    @Query("DELETE FROM events WHERE id = :eventId")
+    void deleteById(long eventId);
 }
