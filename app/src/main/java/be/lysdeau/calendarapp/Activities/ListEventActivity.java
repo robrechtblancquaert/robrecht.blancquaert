@@ -37,7 +37,7 @@ public class ListEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_event);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.list_toolbar);
         setSupportActionBar(myToolbar);
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -138,6 +138,7 @@ public class ListEventActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_home:
+                finish();
                 return true;
         }
         return false;

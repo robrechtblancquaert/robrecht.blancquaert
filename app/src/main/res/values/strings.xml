@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calendar App</string>
+    <string name="app_name">Standard Calendar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -23,6 +23,7 @@
         <item>July</item>
         <item>August</item>
         <item>September</item>
+        <item>October</item>
         <item>November</item>
         <item>December</item>
     </string-array>
@@ -35,4 +36,9 @@
     <string name="delete">Delete</string>
     <string name="event_updated">Event updated!</string>
     <string name="event_deleted">Event deleted!</string>
+    <string name="today_date_is">Today\'s date is</string>
+    <string name="on_gregorian_calendar">On the Gregorian calendar that\'s</string>
+    <string name="events_planned">Events that are planned today:</string>
+    <string name="today_holidays">Today\'s holidays:</string>
+    <string name="jump_to_date">Jump to a date!</string>
 </resources>

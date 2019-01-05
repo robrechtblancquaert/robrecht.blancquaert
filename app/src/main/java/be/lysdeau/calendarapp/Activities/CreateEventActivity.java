@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -31,10 +35,9 @@ import static java.lang.Math.ceil;
 public class CreateEventActivity extends AppCompatActivity {
     private EditText name;
     private EditText description;
-    private EditText year;
-    private Spinner month;
-    private int selectedMonth;
-    private EditText day;
+    private NumberPicker year;
+    private NumberPicker month;
+    private NumberPicker day;
     private CheckBox fullDay;
     private TimePicker startTime;
     private TimePicker endTime;
@@ -44,6 +47,9 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.create_toolbar);
+        setSupportActionBar(myToolbar);
 
         Intent intent = getIntent();
 
@@ -56,22 +62,17 @@ public class CreateEventActivity extends AppCompatActivity {
         this.startTime = findViewById(R.id.start_time);
         this.endTime = findViewById(R.id.end_time);
 
+        // Set number picker values
+        day.setMinValue(1);
+        day.setMaxValue(28);
+        year.setMinValue(1);
+        year.setMaxValue(9999);
+
         // Populate month spinner with month names
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.months, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        month.setAdapter(adapter);
-        month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedMonth = position + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        String[] months = getResources().getStringArray(R.array.months);
+        month.setMinValue(1);
+        month.setMaxValue(13);
+        month.setDisplayedValues(months);
 
         // Add listener to full day checkbox
         final LinearLayout layout = findViewById(R.id.time_selection);
@@ -93,10 +94,10 @@ public class CreateEventActivity extends AppCompatActivity {
         // Fill in the fields with default values if no id was given
         final long id = intent.getLongExtra("eventId", -1);
         if(id == -1) {
-            year.setText(((Integer)Calendar.getInstance().get(Calendar.YEAR)).toString(), TextView.BufferType.EDITABLE);
-            selectedMonth = (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) / 28) + 1;
-            month.setSelection(selectedMonth - 1);
-            day.setText(((Integer)(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) % 28)).toString(), TextView.BufferType.EDITABLE);
+            year.setValue(Calendar.getInstance().get(Calendar.YEAR));
+            month.setValue((int)ceil(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) / (double)28));
+            //day.setText(((Integer)(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) % 28)).toString(), TextView.BufferType.EDITABLE);
+            day.setValue(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)% 28);
 
             startTime.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
             startTime.setMinute(0);
@@ -136,10 +137,9 @@ public class CreateEventActivity extends AppCompatActivity {
                 description.setText(event.getDescription(), TextView.BufferType.EDITABLE);
 
                 CalendarDate startDate = event.getStartDate();
-                year.setText(((Integer)startDate.getYear()).toString(), TextView.BufferType.EDITABLE);
-                selectedMonth = startDate.getMonth();
-                month.setSelection(selectedMonth - 1);
-                day.setText(((Integer)(startDate.getDay() + ((startDate.getWeek() - 1) * 7))).toString(), TextView.BufferType.EDITABLE);
+                year.setValue(startDate.getYear());
+                month.setValue(startDate.getMonth());
+                day.setValue(startDate.getDay() + ((startDate.getWeek() - 1) * 7));
 
                 CalendarDate endDate = event.getEndDate();
                 if(endDate != null) {
@@ -168,10 +168,10 @@ public class CreateEventActivity extends AppCompatActivity {
         calendarEvent.setName(this.name.getText().toString());
         calendarEvent.setDescription(this.description.getText().toString());
         CalendarDate startDate = new CalendarDate();
-        startDate.setYear(Integer.valueOf(this.year.getText().toString()));
-        startDate.setMonth(selectedMonth);
+        startDate.setYear(year.getValue());
+        startDate.setMonth(month.getValue());
 
-        int selectedDay = Integer.valueOf(this.day.getText().toString());
+        int selectedDay = day.getValue();
         int week = (int)(ceil((double)selectedDay/7));
         int day = selectedDay - ((week - 1) * 7);
 
@@ -181,8 +181,8 @@ public class CreateEventActivity extends AppCompatActivity {
         CalendarDate endDate = null;
         if(!fullDay.isChecked()) {
             endDate = new CalendarDate();
-            endDate.setYear(Integer.valueOf(this.year.getText().toString()));
-            endDate.setMonth(selectedMonth);
+            endDate.setYear(year.getValue());
+            endDate.setMonth(month.getValue());
             endDate.setWeek(week);
             endDate.setDay(day);
 
@@ -228,5 +228,22 @@ public class CreateEventActivity extends AppCompatActivity {
     private  boolean checkFields() {
 
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.createmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_close:
+                setResult(RESULT_CANCELED);
+                finish();
+                return true;
+        }
+        return false;
     }
 }
