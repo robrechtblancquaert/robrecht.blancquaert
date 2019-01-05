@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
@@ -33,6 +36,9 @@ public class ListEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_event);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         recyclerView = findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(this);
@@ -73,7 +79,13 @@ public class ListEventActivity extends AppCompatActivity {
                    @Override
                    public void dataReceived(List<CalendarEvent> data) {
                        displayedData.add(data.get(0));
-                       listAdapter.notifyDataSetChanged();
+
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               listAdapter.notifyDataSetChanged();
+                           }
+                       });
                    }
                });
             }
@@ -83,6 +95,11 @@ public class ListEventActivity extends AppCompatActivity {
                 final long id = data.getLongExtra("eventId", -1);
                 if(id == -1) return;
                 final boolean wasDeleted = data.getBooleanExtra("wasDeleted", false);
+
+                int stringId = (wasDeleted) ? R.string.event_deleted : R.string.event_updated;
+
+                Snackbar snackbar = Snackbar.make(recyclerView, stringId, Snackbar.LENGTH_LONG);
+                snackbar.show();
 
                 repository.getEventById(id, new DataCallback<CalendarEvent>() {
                     @Override
@@ -95,6 +112,13 @@ public class ListEventActivity extends AppCompatActivity {
                                     displayedData.remove(i);
                                 }
                                 i = displayedData.size();
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listAdapter.notifyDataSetChanged();
+                                    }
+                                });
                             }
                         }
                     }
@@ -102,11 +126,20 @@ public class ListEventActivity extends AppCompatActivity {
 
             }
         }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                listAdapter.notifyDataSetChanged();
-            }
-        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.listmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_home:
+                return true;
+        }
+        return false;
     }
 }

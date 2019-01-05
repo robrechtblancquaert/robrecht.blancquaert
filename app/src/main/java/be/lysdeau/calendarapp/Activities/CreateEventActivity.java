@@ -26,6 +26,8 @@ import be.lysdeau.calendarapp.Models.CalendarDate;
 import be.lysdeau.calendarapp.Models.CalendarEvent;
 import be.lysdeau.calendarapp.R;
 
+import static java.lang.Math.ceil;
+
 public class CreateEventActivity extends AppCompatActivity {
     private EditText name;
     private EditText description;
@@ -137,7 +139,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 year.setText(((Integer)startDate.getYear()).toString(), TextView.BufferType.EDITABLE);
                 selectedMonth = startDate.getMonth();
                 month.setSelection(selectedMonth - 1);
-                day.setText(((Integer)(startDate.getDay() + (startDate.getWeek() * 7))).toString(), TextView.BufferType.EDITABLE);
+                day.setText(((Integer)(startDate.getDay() + ((startDate.getWeek() - 1) * 7))).toString(), TextView.BufferType.EDITABLE);
 
                 CalendarDate endDate = event.getEndDate();
                 if(endDate != null) {
@@ -160,6 +162,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     public void onSave(View v) {
+        if(!checkFields()) return;
         CalendarEvent calendarEvent = new CalendarEvent();
 
         calendarEvent.setName(this.name.getText().toString());
@@ -167,17 +170,21 @@ public class CreateEventActivity extends AppCompatActivity {
         CalendarDate startDate = new CalendarDate();
         startDate.setYear(Integer.valueOf(this.year.getText().toString()));
         startDate.setMonth(selectedMonth);
+
         int selectedDay = Integer.valueOf(this.day.getText().toString());
-        startDate.setWeek((selectedDay/7) + 1);
-        startDate.setDay((selectedDay%7) + 1);
+        int week = (int)(ceil((double)selectedDay/7));
+        int day = selectedDay - ((week - 1) * 7);
+
+        startDate.setWeek(week);
+        startDate.setDay(day);
 
         CalendarDate endDate = null;
         if(!fullDay.isChecked()) {
             endDate = new CalendarDate();
             endDate.setYear(Integer.valueOf(this.year.getText().toString()));
             endDate.setMonth(selectedMonth);
-            endDate.setWeek((selectedDay/7) + 1);
-            endDate.setDay((selectedDay%7) + 1);
+            endDate.setWeek(week);
+            endDate.setDay(day);
 
             startDate.setHour(startTime.getHour());
             startDate.setMinute(startTime.getMinute());
@@ -188,7 +195,6 @@ public class CreateEventActivity extends AppCompatActivity {
         calendarEvent.setStartDate(startDate);
         calendarEvent.setEndDate(endDate);
 
-        //TODO: add error checking
         CalendarRepository repository = new CalendarRepository(this.getApplication());
         Intent intent = getIntent();
         long id = intent.getLongExtra("eventId", -1);
@@ -217,5 +223,10 @@ public class CreateEventActivity extends AppCompatActivity {
         repository.deleteById(id);
 
         finish();
+    }
+
+    private  boolean checkFields() {
+
+        return true;
     }
 }

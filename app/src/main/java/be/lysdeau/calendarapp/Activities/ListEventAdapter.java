@@ -92,7 +92,7 @@ public class ListEventAdapter extends RecyclerView.Adapter<ListEventAdapter.Even
         CalendarDate startDate = events.get(i).getStartDate();
         CalendarDate endDate = events.get(i).getEndDate();
         String startDateString = String.format("%02d %s %d",
-                (startDate.getDay() + (7 * startDate.getWeek())),
+                (startDate.getDay() + (7 * (startDate.getWeek() - 1))),
                 context.getResources().getStringArray(R.array.months)[(startDate.getMonth() - 1)],
                 startDate.getYear());
         if(startDate.isLeapDay()) startDateString = context.getResources().getString(R.string.leap_day);

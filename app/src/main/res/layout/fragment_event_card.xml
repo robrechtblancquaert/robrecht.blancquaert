@@ -26,6 +26,8 @@
 
             <TextView
                 android:id="@+id/title_text"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
@@ -54,6 +56,8 @@
 
             <TextView
                 android:id="@+id/description_text"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:layout_width="0dp"
                 android:layout_height="58dp"
                 android:layout_marginStart="8dp"
