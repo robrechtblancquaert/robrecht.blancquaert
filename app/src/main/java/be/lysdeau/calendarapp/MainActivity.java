@@ -9,8 +9,11 @@ import android.view.MenuItem;
 
 import be.lysdeau.calendarapp.Activities.CreateEventActivity;
 import be.lysdeau.calendarapp.Activities.ListEventActivity;
+import be.lysdeau.calendarapp.Fragments.DateInfoFragment;
+import be.lysdeau.calendarapp.Fragments.DateJumpFragment;
+import be.lysdeau.calendarapp.Models.CalendarDate;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DateJumpFragment.OnDateChangedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onDateChanged(CalendarDate calendarDate) {
+        DateInfoFragment dateInfo = (DateInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frg_info);
+        dateInfo.setDate(calendarDate);
     }
 }

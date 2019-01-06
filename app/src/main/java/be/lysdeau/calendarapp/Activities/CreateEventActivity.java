@@ -74,6 +74,28 @@ public class CreateEventActivity extends AppCompatActivity {
         month.setMaxValue(13);
         month.setDisplayedValues(months);
 
+        // 29 days possible in june and december
+        month.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                if((newVal == 6 && CalendarDate.isLeapYear(year.getValue())) || newVal == 13) {
+                    day.setMaxValue(29);
+                } else {
+                    day.setMaxValue(28);
+                }
+            }
+        });
+        year.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                if(month.getValue() == 6 && CalendarDate.isLeapYear(newVal)) {
+                    day.setMaxValue(29);
+                } else {
+                    day.setMaxValue(28);
+                }
+            }
+        });
+
         // Add listener to full day checkbox
         final LinearLayout layout = findViewById(R.id.time_selection);
         fullDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,7 +118,11 @@ public class CreateEventActivity extends AppCompatActivity {
         if(id == -1) {
             year.setValue(Calendar.getInstance().get(Calendar.YEAR));
             month.setValue((int)ceil(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) / (double)28));
-            //day.setText(((Integer)(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) % 28)).toString(), TextView.BufferType.EDITABLE);
+            if((month.getValue() == 6 && CalendarDate.isLeapYear(year.getValue())) || month.getValue() == 13) {
+                day.setMaxValue(29);
+            } else {
+                day.setMaxValue(28);
+            }
             day.setValue(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)% 28);
 
             startTime.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
@@ -139,6 +165,11 @@ public class CreateEventActivity extends AppCompatActivity {
                 CalendarDate startDate = event.getStartDate();
                 year.setValue(startDate.getYear());
                 month.setValue(startDate.getMonth());
+                if((month.getValue() == 6 && CalendarDate.isLeapYear(year.getValue())) || month.getValue() == 13) {
+                    day.setMaxValue(29);
+                } else {
+                    day.setMaxValue(28);
+                }
                 day.setValue(startDate.getDay() + ((startDate.getWeek() - 1) * 7));
 
                 CalendarDate endDate = event.getEndDate();
@@ -174,6 +205,11 @@ public class CreateEventActivity extends AppCompatActivity {
         int selectedDay = day.getValue();
         int week = (int)(ceil((double)selectedDay/7));
         int day = selectedDay - ((week - 1) * 7);
+        // Account for leap day and year day
+        if(week == 5) {
+            week = 4;
+            day = 8;
+        }
 
         startDate.setWeek(week);
         startDate.setDay(day);

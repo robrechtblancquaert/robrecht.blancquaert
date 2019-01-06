@@ -75,7 +75,7 @@ public class CalendarDate {
 
     public void setDay(int day) {
         if(day < 1 || day > 8) throw new IllegalArgumentException("Day must be between 1 and 8");
-        if(day == 8 && !(week == 4 && (month == 7 || month == 13))) throw new IllegalArgumentException("8th day may only occur in Sol and December");
+        if(day == 8 && !(week == 4 && (month == 6 || month == 13))) throw new IllegalArgumentException("8th day may only occur in Sol and December");
         this.day = day;
     }
 
@@ -102,6 +102,10 @@ public class CalendarDate {
      */
 
     public boolean isLeapYear() {
+        return isLeapYear(year);
+    }
+
+    public static boolean isLeapYear(int year) {
         if(year % 4 == 0) {
             if(year % 100 == 0) {
                 return year % 400 == 0;
