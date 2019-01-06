@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import java.util.Calendar;
+
 import be.lysdeau.calendarapp.Models.CalendarDate;
 import be.lysdeau.calendarapp.R;
+
+import static java.lang.Math.ceil;
 
 public class DateJumpFragment extends Fragment {
 
@@ -56,9 +60,10 @@ public class DateJumpFragment extends Fragment {
         monthPicker.setMaxValue(13);
         monthPicker.setDisplayedValues(months);
 
-        //TODO: set to today
-
+        yearPicker.setValue(Calendar.getInstance().get(Calendar.YEAR));
+        monthPicker.setValue((int)ceil(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) / (double)28));
         triggerChange();
+        dayPicker.setValue(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)% 28);
 
         Button button = v.findViewById(R.id.button_go);
         button.setOnClickListener(new View.OnClickListener() {
@@ -66,17 +71,34 @@ public class DateJumpFragment extends Fragment {
             public void onClick(View v) {
                 CalendarDate calendarDate = new CalendarDate();
 
-                //get date
+                int month = monthPicker.getValue();
+                int year = yearPicker.getValue();
+
+                calendarDate.setYear(year);
+                calendarDate.setMonth(month);
+
+                int selectedDay = dayPicker.getValue();
+                int week = (int)(ceil((double)selectedDay/7));
+                int day = selectedDay - ((week - 1) * 7);
+                // Account for leap day and year day
+                if(week == 5) {
+                    week = 4;
+                    day = 8;
+                }
+
+                calendarDate.setWeek(week);
+                calendarDate.setDay(day);
 
                 mListener.onDateChanged(calendarDate);
             }
         });
 
+        button.callOnClick();
+
         return v;
     }
 
     private void triggerChange() {
-        int day = dayPicker.getValue();
         int month = monthPicker.getValue();
         int year = yearPicker.getValue();
 

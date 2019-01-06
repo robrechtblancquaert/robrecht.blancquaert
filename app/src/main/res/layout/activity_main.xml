@@ -20,12 +20,14 @@
 
     <fragment
         android:id="@+id/frg_info"
+        android:name="be.lysdeau.calendarapp.Fragments.DateInfoFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_date_info"/>
 
     <fragment
         android:id="@+id/frg_jump"
+        android:name="be.lysdeau.calendarapp.Fragments.DateJumpFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_date_jump"/>

@@ -36,9 +36,9 @@
     <string name="delete">Delete</string>
     <string name="event_updated">Event updated!</string>
     <string name="event_deleted">Event deleted!</string>
-    <string name="today_date_is">Today\'s date is</string>
-    <string name="on_gregorian_calendar">On the Gregorian calendar that\'s</string>
-    <string name="events_planned">Events that are planned today:</string>
+    <string name="today_date_is">The date is</string>
+    <string name="on_gregorian_calendar">on the Gregorian calendar that\'s</string>
+    <string name="events_planned">Events that are planned on this date:</string>
     <string name="today_holidays">Today\'s holidays:</string>
     <string name="jump_to_date">Jump to a date!</string>
     <string name="go">Go!</string>
