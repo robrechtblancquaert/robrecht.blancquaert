@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Standaard Kalender</string>
+
+
+    <string name="save_event">Opslaan</string>
+    <string name="cancel_event_creation">Anuleer</string>
+    <string name="enter_event_name_hint">Voeg naam in</string>
+    <string name="enter_event_description_hint">beschrijving</string>
+    <string name="event_creation_date">Datum:</string>
+    <string name="event_creation_start">Start:</string>
+    <string name="event_creation_end">Einde:</string>
+    <string-array name="months">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maart</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Sol</item>
+        <item>Juli</item>
+        <item>Augustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string name="event_year_hint">Jaar</string>
+    <string name="event_day_hint">Dag</string>
+    <string name="event_full_day">Volle dag?</string>
+    <string name="year_day">Jaardag</string>
+    <string name="leap_day">Schrikkeldah</string>
+    <string name="event_saved">Event opgeslaan!</string>
+    <string name="delete">Verwijder</string>
+    <string name="event_updated">Event geüpdate!</string>
+    <string name="event_deleted">Event verwijderd!</string>
+    <string name="today_date_is">De datum is</string>
+    <string name="on_gregorian_calendar">op de gregoriaanse kalender is dat</string>
+    <string name="events_planned">Events die op deze datum gepland zijn:</string>
+    <string name="jump_to_date">Spring naar datum!</string>
+    <string name="go">Go!</string>
+    <string name="jump_to_today">Ga naar vandaag</string>
+    <string name="are_you_sure">Ben je zeker dat je dit event wilt verwijderen?</string>
+    <string name="confirm">Bevestig</string>
+    <string name="cancel">Annuleer</string>
+    <string name="events_planned_notification">Je hebt events ingepland vendaag!</string>
+</resources>

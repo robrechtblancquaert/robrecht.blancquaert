@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +24,7 @@
         <activity android:name=".Activities.CreateEventActivity" />
         <activity android:name=".Activities.ui.eventlist.EventListActivity" />
         <activity android:name=".Activities.ListEventActivity"></activity>
-
+        <receiver android:name=".MainActivity$AlarmReceiver"/>
     </application>
 
 </manifest>
