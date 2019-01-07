@@ -47,7 +47,7 @@ public class CalendarDate {
     }
 
     public void setYear(int year) {
-        if(year < 0 || year > 9999) throw new IllegalArgumentException("Year must be between 0 and 9999");
+        if(year < 1 || year > 9999) throw new IllegalArgumentException("Year must be between 0 and 9999");
         this.year = year;
     }
 
