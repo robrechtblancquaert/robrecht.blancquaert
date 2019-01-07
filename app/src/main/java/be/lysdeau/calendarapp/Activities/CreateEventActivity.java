@@ -1,8 +1,11 @@
 package be.lysdeau.calendarapp.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +29,7 @@ import java.util.List;
 
 import be.lysdeau.calendarapp.Database.CalendarRepository;
 import be.lysdeau.calendarapp.Database.DataCallback;
+import be.lysdeau.calendarapp.MainActivity;
 import be.lysdeau.calendarapp.Models.CalendarDate;
 import be.lysdeau.calendarapp.Models.CalendarEvent;
 import be.lysdeau.calendarapp.R;
@@ -179,6 +183,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
                     endTime.setHour(endDate.getHour());
                     endTime.setMinute(endDate.getMinute());
+
+                    fullDay.setChecked(false);
                 } else {
                     startTime.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
                     startTime.setMinute(0);
@@ -251,14 +257,34 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     public void onDelete(View v) {
-        Intent intent = getIntent();
-        long id = intent.getLongExtra("eventId", -1);
-        setResult(RESULT_OK, new Intent().putExtra("eventId", id).putExtra("wasDeleted", true));
+        Resources res = getResources();
 
-        CalendarRepository repository = new CalendarRepository(this.getApplication());
-        repository.deleteById(id);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(res.getString(R.string.delete) + " " + name.getText() + "?");
+        builder.setMessage(res.getString(R.string.are_you_sure));
+        builder.setPositiveButton(res.getString(R.string.confirm),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = getIntent();
+                        long id = intent.getLongExtra("eventId", -1);
+                        setResult(RESULT_OK, new Intent().putExtra("eventId", id).putExtra("wasDeleted", true));
 
-        finish();
+                        CalendarRepository repository = new CalendarRepository(getApplication());
+                        repository.deleteById(id);
+
+                        finish();
+                    }
+                });
+        builder.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private  boolean checkFields() {

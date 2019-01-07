@@ -65,7 +65,7 @@ public class DateJumpFragment extends Fragment {
         triggerChange();
         dayPicker.setValue(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)% 28);
 
-        Button button = v.findViewById(R.id.button_go);
+        final Button button = v.findViewById(R.id.button_go);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +90,19 @@ public class DateJumpFragment extends Fragment {
                 calendarDate.setDay(day);
 
                 mListener.onDateChanged(calendarDate);
+            }
+        });
+
+        Button buttonToToday = v.findViewById(R.id.button_today);
+        buttonToToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yearPicker.setValue(Calendar.getInstance().get(Calendar.YEAR));
+                monthPicker.setValue((int)ceil(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) / (double)28));
+                triggerChange();
+                dayPicker.setValue(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)% 28);
+
+                button.callOnClick();
             }
         });
 

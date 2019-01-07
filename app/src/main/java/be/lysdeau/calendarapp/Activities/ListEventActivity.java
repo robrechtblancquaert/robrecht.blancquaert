@@ -13,10 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Comparator;
 import java.util.List;
 
 import be.lysdeau.calendarapp.Database.CalendarRepository;
 import be.lysdeau.calendarapp.Database.DataCallback;
+import be.lysdeau.calendarapp.Models.CalendarDate;
 import be.lysdeau.calendarapp.Models.CalendarEvent;
 import be.lysdeau.calendarapp.R;
 
@@ -54,11 +56,23 @@ public class ListEventActivity extends AppCompatActivity {
             @Override
             public void dataReceived(List<CalendarEvent> data) {
                 displayedData = data;
+                sort();
 
                 ListEventAdapter adapter = new ListEventAdapter(displayedData, context);
                 listAdapter = adapter;
 
                 recyclerView.setAdapter(listAdapter);
+
+                Intent intent = getIntent();
+                long id = intent.getLongExtra("jumpToId", -1);
+                if(id != -1) {
+                    for(int i = 0; i < displayedData.size(); i++) {
+                        if(displayedData.get(i).getId() == id) {
+                            layoutManager.scrollToPosition(i);
+                            i = displayedData.size();
+                        }
+                    }
+                }
             }
         });
     }
@@ -66,6 +80,28 @@ public class ListEventActivity extends AppCompatActivity {
     public void onAdd(View v) {
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivityForResult(intent, CREATE_EVENT_REQUEST);
+    }
+
+    private void sort() {
+        displayedData.sort(new Comparator<CalendarEvent>() {
+            @Override
+            public int compare(CalendarEvent o1, CalendarEvent o2) {
+                // Is a bigger than b? a - b
+                CalendarDate d1 = o1.getStartDate();
+                CalendarDate d2 = o2.getStartDate();
+
+                int i = 0;
+                i = d1.getYear() - d2.getYear();
+                if(i != 0) return i;
+                i = d1.getMonth() - d2.getMonth();
+                if(i != 0) return i;
+                i = d1.getWeek() - d2.getWeek();
+                if(i != 0) return i;
+                i = d1.getDay() - d2.getDay();
+
+                return i;
+            }
+        });
     }
 
     @Override
@@ -79,6 +115,7 @@ public class ListEventActivity extends AppCompatActivity {
                    @Override
                    public void dataReceived(List<CalendarEvent> data) {
                        displayedData.add(data.get(0));
+                       sort();
 
                        runOnUiThread(new Runnable() {
                            @Override
@@ -112,6 +149,7 @@ public class ListEventActivity extends AppCompatActivity {
                                     displayedData.remove(i);
                                 }
                                 i = displayedData.size();
+                                sort();
 
                                 runOnUiThread(new Runnable() {
                                     @Override

@@ -3,6 +3,7 @@ package be.lysdeau.calendarapp.Database;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import be.lysdeau.calendarapp.Models.CalendarDate;
 import be.lysdeau.calendarapp.Models.CalendarEvent;
 
 public class CalendarRepository {
@@ -71,6 +72,16 @@ public class CalendarRepository {
             @Override
             public void run() {
                 callback.dataReceived(dao.getEventById(eventId));
+            }
+        };
+        new Thread(runQuery).start();
+    }
+
+    public void getEventsByDate(final CalendarDate date, final DataCallback<CalendarEvent> callback) {
+        Runnable runQuery = new Runnable() {
+            @Override
+            public void run() {
+                callback.dataReceived(dao.getEventsByDate(date.getYear(), date.getMonth(), date.getWeek(), date.getDay()));
             }
         };
         new Thread(runQuery).start();

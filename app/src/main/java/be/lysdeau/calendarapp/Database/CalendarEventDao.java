@@ -31,6 +31,9 @@ public interface CalendarEventDao {
     @Query("SELECT * FROM events WHERE id = :eventId LIMIT 1")
     List<CalendarEvent> getEventById(long eventId);
 
+    @Query("SELECT * FROM events WHERE start_year = :year AND start_month = :month AND start_week = :week AND start_day = :day")
+    List<CalendarEvent> getEventsByDate(int year, int month, int week, int day);
+
     @Query("DELETE FROM events WHERE id = :eventId")
     void deleteById(long eventId);
 }

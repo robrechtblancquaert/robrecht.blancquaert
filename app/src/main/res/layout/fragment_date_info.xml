@@ -77,8 +77,9 @@
     </android.support.constraint.ConstraintLayout>
 
     <ListView
+        android:id="@+id/list_view_info"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="match_parent">
 
     </ListView>
 
