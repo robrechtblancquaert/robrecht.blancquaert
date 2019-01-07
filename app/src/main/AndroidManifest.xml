@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.lysdeau.calendarapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,9 +21,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.CreateEventActivity" />
-        <activity android:name=".Activities.ui.eventlist.EventListActivity" />
-        <activity android:name=".Activities.ListEventActivity"></activity>
-        <receiver android:name=".MainActivity$AlarmReceiver"/>
+        <activity android:name=".Activities.ListEventActivity" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

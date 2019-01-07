@@ -89,47 +89,4 @@ public class MainActivity extends AppCompatActivity implements DateJumpFragment.
         AlarmManager am = (AlarmManager) this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
-
-    public class AlarmReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            final Resources res = getResources();
-
-            CalendarRepository repository = new CalendarRepository(MainActivity.this.getApplication());
-
-            Calendar calendar = Calendar.getInstance();
-            CalendarDate date = new CalendarDate();
-            date.setYear(calendar.get(Calendar.YEAR));
-            date.setMonth((int)ceil(calendar.get(Calendar.DAY_OF_YEAR) / (double)28));
-            date.setDay(calendar.get(Calendar.DAY_OF_YEAR) % 28);
-
-            repository.getEventsByDate(date, new DataCallback<CalendarEvent>() {
-                @Override
-                public void dataReceived(List<CalendarEvent> data) {
-
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-
-                    final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainActivity.this)
-                            .setSmallIcon(R.drawable.ic_event)
-                            .setContentTitle(res.getString(R.string.app_name))
-                            .setContentText(res.getString(R.string.events_planned_notification))
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setContentIntent(pendingIntent)
-                            .setAutoCancel(true);
-
-                    final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            notificationManager.notify(0, mBuilder.build());
-                        }
-                    });
-                }
-            });
-        }
-    }
 }
