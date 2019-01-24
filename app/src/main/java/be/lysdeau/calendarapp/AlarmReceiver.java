@@ -32,7 +32,18 @@ public class AlarmReceiver extends BroadcastReceiver {
         CalendarDate date = new CalendarDate();
         date.setYear(calendar.get(Calendar.YEAR));
         date.setMonth((int)ceil(calendar.get(Calendar.DAY_OF_YEAR) / (double)28));
-        date.setDay(calendar.get(Calendar.DAY_OF_YEAR) % 28);
+
+        int selectedDay = calendar.get(Calendar.DAY_OF_YEAR) % 28;
+        int week = (int)(ceil((double)selectedDay/7));
+        int day = selectedDay - ((week - 1) * 7);
+        // Account for leap day and year day
+        if(week == 5) {
+            week = 4;
+            day = 8;
+        }
+
+        date.setWeek(week);
+        date.setDay(day);
 
         repository.getEventsByDate(date, new DataCallback<CalendarEvent>() {
             @Override

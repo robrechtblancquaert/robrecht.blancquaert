@@ -54,7 +54,8 @@
                 android:src="@mipmap/ic_launcher_round"
                 app:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/title_text" />
+                card_view:layout_constraintTop_toBottomOf="@+id/title_text"
+                card_view:srcCompat="@drawable/ic_event" />
 
             <TextView
                 android:id="@+id/description_text"

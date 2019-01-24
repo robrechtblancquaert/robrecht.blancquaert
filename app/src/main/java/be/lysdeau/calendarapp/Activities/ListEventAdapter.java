@@ -68,7 +68,6 @@ public class ListEventAdapter extends RecyclerView.Adapter<ListEventAdapter.Even
         final View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_event_card, viewGroup, false);
         EventViewHolder holder = new EventViewHolder(itemView);
 
-
         return holder;
     }
 
